@@ -64,6 +64,7 @@ import { TaxCalculationFilter } from '../filters/concreteFilters/taxCalculationF
 import { PaymentProcessingFilter } from '../filters/concreteFilters/paymentProcessingFilter';
 
 export const orderPipeline = new BasicOrderPipeline();
+
 // Registrar los filtros en el orden correcto
 orderPipeline.addFilter(new CustomerValidationFilter());
 orderPipeline.addFilter(new ProductValidationFilter());

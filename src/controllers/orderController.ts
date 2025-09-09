@@ -9,7 +9,6 @@ const orderResults: Record<string, PipelineResult> = {};
 
 export const processOrder = async (req: Request, res: Response) => {
     const order: Order = req.body;
-    // Configuración por defecto, puedes mejorar esto
     const config: PipelineConfig = { enabledFilters: orderPipeline.filters.map(f => f.name) };
     const result = await orderPipeline.process(order, config);
     orderResults[order.id] = result;

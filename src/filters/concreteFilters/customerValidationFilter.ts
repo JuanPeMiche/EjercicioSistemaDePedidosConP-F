@@ -21,7 +21,6 @@ export class CustomerValidationFilter implements OrderFilter {
             if (!customer.email || !customer.name) {
                 errors.push('Información de contacto incompleta.');
             }
-            // Puedes agregar más validaciones aquí
         }
 
         return {
