@@ -64,31 +64,90 @@ El servidor corre en `http://localhost:3000` por defecto.
 }
 ```
 
-**Respuesta exitosa:**
+**Respuesta exitosa (simplificada):**
 ```json
 {
 	"success": true,
-	"finalOrder": { ... },
-	"filterResults": [ ... ],
+	"finalOrder": {
+		"id": "order1",
+		"customerId": "c1",
+		"items": [ ... ],
+		"status": "completed",
+		"createdAt": "2025-09-09T10:00:00Z",
+		"subtotal": 60,
+		"discounts": [ ... ],
+		"taxes": 6,
+		"total": 66,
+		"metadata": { "confirmationCode": "CONF-XXXXXXX" }
+	},
+	"filterResults": [
+		{ "filter": "CustomerValidationFilter", "success": true },
+		{ "filter": "ProductValidationFilter", "success": true },
+		{ "filter": "DataIntegrityFilter", "success": true },
+		{ "filter": "PriceCalculationFilter", "success": true },
+		{ "filter": "MembershipDiscountFilter", "success": true },
+		{ "filter": "VolumeDiscountFilter", "success": true },
+		{ "filter": "TaxCalculationFilter", "success": true },
+		{ "filter": "PaymentProcessingFilter", "success": true }
+	],
 	"executionTime": 12
+}
+```
+
+**Respuesta con error (ejemplo):**
+```json
+{
+	"success": false,
+	"finalOrder": { ... },
+	"filterResults": [
+		{ "filter": "CustomerValidationFilter", "success": true },
+		{ "filter": "ProductValidationFilter", "success": false }
+	],
+	"executionTime": 5,
+	"failedAt": "ProductValidationFilter"
 }
 ```
 
 ### Estado de procesamiento
 `GET /api/orders/:id/status`
 
-**Respuesta:**
+**Respuesta (igual a la de procesamiento):**
 ```json
 {
 	"success": true,
 	"finalOrder": { ... },
-	"filterResults": [ ... ],
+	"filterResults": [
+		{ "filter": "CustomerValidationFilter", "success": true },
+		{ "filter": "ProductValidationFilter", "success": true },
+		{ "filter": "DataIntegrityFilter", "success": true },
+		{ "filter": "PriceCalculationFilter", "success": true },
+		{ "filter": "MembershipDiscountFilter", "success": true },
+		{ "filter": "VolumeDiscountFilter", "success": true },
+		{ "filter": "TaxCalculationFilter", "success": true },
+		{ "filter": "PaymentProcessingFilter", "success": true }
+	],
 	"executionTime": 12
 }
 ```
 
 ### Ver configuración del pipeline
 `GET /api/pipeline/config`
+
+**Respuesta ejemplo:**
+```json
+{
+	"enabledFilters": [
+		"CustomerValidationFilter",
+		"ProductValidationFilter",
+		"DataIntegrityFilter",
+		"PriceCalculationFilter",
+		"MembershipDiscountFilter",
+		"VolumeDiscountFilter",
+		"TaxCalculationFilter",
+		"PaymentProcessingFilter"
+	]
+}
+```
 
 ### Modificar configuración del pipeline
 `PUT /api/pipeline/config`
@@ -110,48 +169,34 @@ El servidor corre en `http://localhost:3000` por defecto.
 
 ---
 
-## Testing
+
+## Testing y cobertura
 
 Ejecuta todos los tests con:
 ```bash
 npm test
 ```
-Incluye tests unitarios para cada filtro y de integración para el pipeline y endpoints.
+
+Para ver el reporte de cobertura:
+```bash
+npm run test -- --coverage
+```
+Incluye tests unitarios para cada filtro, servicios, controllers y de integración para el pipeline y endpoints.
 
 ---
 
-## Ejemplo de pedido válido
-```json
-{
-	"id": "order100",
-	"customerId": "c1",
-	"items": [
-		{ "productId": "p1", "quantity": 1 },
-		{ "productId": "p2", "quantity": 2 }
-	],
-	"status": "pending",
-	"createdAt": "2025-09-09T10:00:00Z"
-}
-```
 
-## Ejemplo de respuesta con confirmación
-```json
-{
-	"success": true,
-	"finalOrder": {
-		"id": "order100",
-		"customerId": "c1",
-		"items": [ ... ],
-		"status": "completed",
-		"metadata": {
-			"confirmationCode": "CONF-XXXXXXX"
-		},
-		...
-	},
-	"filterResults": [ ... ],
-	"executionTime": 15
-}
-```
+---
+
+## Colección de Postman
+
+Se incluye la colección `Ejercicio3SistemaDePedidos.postman_collection.json` para probar todos los endpoints y escenarios:
+
+1. Abre Postman y selecciona **Importar**.
+2. Elige el archivo `Ejercicio3SistemaDePedidos.postman_collection.json` de este repositorio.
+3. Ejecuta los requests y tests listos para cada flujo: validaciones, descuentos, errores y configuración dinámica.
+
+---
 
 ---
 

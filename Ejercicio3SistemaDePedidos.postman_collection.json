@@ -1,0 +1,972 @@
+{
+	"info": {
+		"_postman_id": "54c6df86-491d-4993-a9c4-89f50c28e292",
+		"name": "Ejercicio3SistemaDePedidos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "43685817",
+		"_collection_link": "https://juanpedromichelini.postman.co/workspace/Juan-Pedro-Michelini's-Workspac~853d0af4-d73c-4af8-8542-9da6aee7f6da/collection/43685817-54c6df86-491d-4993-a9c4-89f50c28e292?action=share&source=collection_link&creator=43685817"
+	},
+	"item": [
+		{
+			"name": "ValidacionBasica",
+			"item": [
+				{
+					"name": "PedidoValido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"orderValido1\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [\r\n    { \"productId\": \"p1\", \"quantity\": 1 },\r\n    { \"productId\": \"p2\", \"quantity\": 2 }\r\n  ],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "PedidoValido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"orderValido1\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [\r\n    { \"productId\": \"p1\", \"quantity\": 1 },\r\n    { \"productId\": \"p2\", \"quantity\": 2 }\r\n  ],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-10T15:00:00Z\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "905"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"389-crv7Bq5P6SMhHJHHvgxV7UxLPAs\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:41:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"finalOrder\": {\n        \"id\": \"orderValido1\",\n        \"customerId\": \"c1\",\n        \"items\": [\n            {\n                \"productId\": \"p1\",\n                \"quantity\": 1,\n                \"unitPrice\": 1200,\n                \"totalPrice\": 1200\n            },\n            {\n                \"productId\": \"p2\",\n                \"quantity\": 2,\n                \"unitPrice\": 25,\n                \"totalPrice\": 50\n            }\n        ],\n        \"status\": \"completed\",\n        \"createdAt\": \"2025-09-10T15:00:00Z\",\n        \"subtotal\": 1250,\n        \"discounts\": [\n            {\n                \"code\": \"membership\",\n                \"type\": \"membership\",\n                \"amount\": 187.5\n            },\n            {\n                \"code\": \"volume\",\n                \"type\": \"volume\",\n                \"amount\": 62.5\n            }\n        ],\n        \"taxes\": 262.5,\n        \"metadata\": {\n            \"confirmationCode\": \"CONF-SS6KLN49\"\n        }\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": true\n        }\n    ],\n    \"executionTime\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "ClienteInexistente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"orderClienteInexistente\",\r\n  \"customerId\": \"noexiste\",\r\n  \"items\": [{ \"productId\": \"p1\", \"quantity\": 1 }],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}"
+						},
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "ClienteInexistente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"orderClienteInexistente\",\r\n  \"customerId\": \"noexiste\",\r\n  \"items\": [{ \"productId\": \"p1\", \"quantity\": 1 }],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}"
+								},
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "672"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a0-JHAEliazujd+mWQ5Y5gMlKeNKHE\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:38:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"finalOrder\": {\n        \"id\": \"orderClienteInexistente\",\n        \"customerId\": \"noexiste\",\n        \"items\": [\n            {\n                \"productId\": \"p1\",\n                \"quantity\": 1\n            }\n        ],\n        \"status\": \"pending\",\n        \"createdAt\": \"2025-09-09T10:00:00Z\"\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": false\n        }\n    ],\n    \"executionTime\": 1,\n    \"failedAt\": \"CustomerValidationFilter\"\n}"
+						}
+					]
+				},
+				{
+					"name": "ProductoSinStock",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"orderSinStock\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [{ \"productId\": \"p3\", \"quantity\": 99 }],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}"
+						},
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "ProductoSinStock",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"orderSinStock\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [{ \"productId\": \"p3\", \"quantity\": 99 }],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}"
+								},
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "655"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"28f-q1KGYwfSg4fBY1MTkSI0bTYfpK8\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:39:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"finalOrder\": {\n        \"id\": \"orderSinStock\",\n        \"customerId\": \"c1\",\n        \"items\": [\n            {\n                \"productId\": \"p3\",\n                \"quantity\": 99\n            }\n        ],\n        \"status\": \"pending\",\n        \"createdAt\": \"2025-09-09T10:00:00Z\"\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": false\n        }\n    ],\n    \"executionTime\": 1,\n    \"failedAt\": \"ProductValidationFilter\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DatosIncompletos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "DatosIncompletos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"34-ovxQaA+jibz2CNYBHjMJrMy8F+o\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:39:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"El id del pedido es requerido\",\n    \"code\": 400\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PreciosYDescuentos",
+			"item": [
+				{
+					"name": "PedidoSinDescuentos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"orderSimple\",\r\n  \"customerId\": \"c3\",\r\n  \"items\": [{ \"productId\": \"p4\", \"quantity\": 1 }],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "PedidoSinDescuentos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"orderSimple\",\r\n  \"customerId\": \"c3\",\r\n  \"items\": [{ \"productId\": \"p4\", \"quantity\": 1 }],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "779"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"30b-Yft3tmpEyutbC1S/7w5f+mVgv2Q\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:42:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"finalOrder\": {\n        \"id\": \"orderSimple\",\n        \"customerId\": \"c3\",\n        \"items\": [\n            {\n                \"productId\": \"p4\",\n                \"quantity\": 1,\n                \"unitPrice\": 20,\n                \"totalPrice\": 20\n            }\n        ],\n        \"status\": \"completed\",\n        \"createdAt\": \"2025-09-09T10:00:00Z\",\n        \"subtotal\": 20,\n        \"discounts\": [\n            {\n                \"code\": \"membership\",\n                \"type\": \"membership\",\n                \"amount\": 1\n            }\n        ],\n        \"taxes\": 2,\n        \"metadata\": {\n            \"confirmationCode\": \"CONF-QDYIBIB4\"\n        }\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": true\n        }\n    ],\n    \"executionTime\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "ClienteGold",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"orderGold\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [{ \"productId\": \"p1\", \"quantity\": 1 }],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}"
+						},
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "ClienteGold",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"orderGold\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [{ \"productId\": \"p1\", \"quantity\": 1 }],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}"
+								},
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "833"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"341-swydrhBlUc58+ANq37WsqWrTmmY\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:43:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"finalOrder\": {\n        \"id\": \"orderGold\",\n        \"customerId\": \"c1\",\n        \"items\": [\n            {\n                \"productId\": \"p1\",\n                \"quantity\": 1,\n                \"unitPrice\": 1200,\n                \"totalPrice\": 1200\n            }\n        ],\n        \"status\": \"completed\",\n        \"createdAt\": \"2025-09-09T10:00:00Z\",\n        \"subtotal\": 1200,\n        \"discounts\": [\n            {\n                \"code\": \"membership\",\n                \"type\": \"membership\",\n                \"amount\": 180\n            },\n            {\n                \"code\": \"volume\",\n                \"type\": \"volume\",\n                \"amount\": 60\n            }\n        ],\n        \"taxes\": 252,\n        \"metadata\": {\n            \"confirmationCode\": \"CONF-VT9P7HM3\"\n        }\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": true\n        }\n    ],\n    \"executionTime\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "DescuentoPorVolumen",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"orderVolumen\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [\r\n    { \"productId\": \"p2\", \"quantity\": 20 }\r\n  ],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "DescuentoPorVolumen",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"orderVolumen\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [\r\n    { \"productId\": \"p2\", \"quantity\": 20 }\r\n  ],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "832"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"340-YPykVsw5AZEu+YCRk/7uExKhIsM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:45:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"finalOrder\": {\n        \"id\": \"orderVolumen\",\n        \"customerId\": \"c1\",\n        \"items\": [\n            {\n                \"productId\": \"p2\",\n                \"quantity\": 20,\n                \"unitPrice\": 25,\n                \"totalPrice\": 500\n            }\n        ],\n        \"status\": \"completed\",\n        \"createdAt\": \"2025-09-09T10:00:00Z\",\n        \"subtotal\": 500,\n        \"discounts\": [\n            {\n                \"code\": \"membership\",\n                \"type\": \"membership\",\n                \"amount\": 75\n            },\n            {\n                \"code\": \"volume\",\n                \"type\": \"volume\",\n                \"amount\": 25\n            }\n        ],\n        \"taxes\": 105,\n        \"metadata\": {\n            \"confirmationCode\": \"CONF-5GKY2LYO\"\n        }\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": true\n        }\n    ],\n    \"executionTime\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "MultiplesDescuentos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"orderMultiDescuento\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [\r\n    { \"productId\": \"p1\", \"quantity\": 15 },\r\n    { \"productId\": \"p2\", \"quantity\": 40 }\r\n  ],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-10T15:00:00Z\"\r\n}"
+						},
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "MultiplesDescuentos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"orderMultiDescuento\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [\r\n    { \"productId\": \"p1\", \"quantity\": 15 },\r\n    { \"productId\": \"p2\", \"quantity\": 40 }\r\n  ],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-10T15:00:00Z\"\r\n}"
+								},
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "694"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b6-wrL0DAqIP9ze5Fui5Ot6PRNhVBg\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:47:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"finalOrder\": {\n        \"id\": \"orderMultiDescuento\",\n        \"customerId\": \"c1\",\n        \"items\": [\n            {\n                \"productId\": \"p1\",\n                \"quantity\": 15\n            },\n            {\n                \"productId\": \"p2\",\n                \"quantity\": 40\n            }\n        ],\n        \"status\": \"pending\",\n        \"createdAt\": \"2025-09-10T15:00:00Z\"\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": false\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": false\n        }\n    ],\n    \"executionTime\": 0,\n    \"failedAt\": \"ProductValidationFilter\"\n}"
+						}
+					]
+				},
+				{
+					"name": "CalculoDeImpuestos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"orderImpuestos\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [\r\n    { \"productId\": \"p1\", \"quantity\": 1 },  // electronics (21%)\r\n    { \"productId\": \"p4\", \"quantity\": 2 }   // books (10%)\r\n  ],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}"
+						},
+						"url": "http://localhost:3000/api/orders/process"
+					},
+					"response": [
+						{
+							"name": "CalculoDeImpuestos",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"orderImpuestos\",\r\n  \"customerId\": \"c1\",\r\n  \"items\": [\r\n    { \"productId\": \"p1\", \"quantity\": 1 },  // electronics (21%)\r\n    { \"productId\": \"p4\", \"quantity\": 2 }   // books (10%)\r\n  ],\r\n  \"status\": \"pending\",\r\n  \"createdAt\": \"2025-09-09T10:00:00Z\"\r\n}"
+								},
+								"url": "http://localhost:3000/api/orders/process"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "901"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"385-cPGYsvJW43gEtSK1xWit+z4sxgM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:49:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"finalOrder\": {\n        \"id\": \"orderImpuestos\",\n        \"customerId\": \"c1\",\n        \"items\": [\n            {\n                \"productId\": \"p1\",\n                \"quantity\": 1,\n                \"unitPrice\": 1200,\n                \"totalPrice\": 1200\n            },\n            {\n                \"productId\": \"p4\",\n                \"quantity\": 2,\n                \"unitPrice\": 20,\n                \"totalPrice\": 40\n            }\n        ],\n        \"status\": \"completed\",\n        \"createdAt\": \"2025-09-09T10:00:00Z\",\n        \"subtotal\": 1240,\n        \"discounts\": [\n            {\n                \"code\": \"membership\",\n                \"type\": \"membership\",\n                \"amount\": 186\n            },\n            {\n                \"code\": \"volume\",\n                \"type\": \"volume\",\n                \"amount\": 62\n            }\n        ],\n        \"taxes\": 256,\n        \"metadata\": {\n            \"confirmationCode\": \"CONF-E8VTPQXZ\"\n        }\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": true\n        }\n    ],\n    \"executionTime\": 1\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ConfiguracionYConsulta",
+			"item": [
+				{
+					"name": "EstadoDeUnPedido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/orders/orderValido1/status"
+					},
+					"response": [
+						{
+							"name": "EstadoDeUnPedido",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:3000/api/orders/orderValido1/status"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "905"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"389-crv7Bq5P6SMhHJHHvgxV7UxLPAs\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:53:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"finalOrder\": {\n        \"id\": \"orderValido1\",\n        \"customerId\": \"c1\",\n        \"items\": [\n            {\n                \"productId\": \"p1\",\n                \"quantity\": 1,\n                \"unitPrice\": 1200,\n                \"totalPrice\": 1200\n            },\n            {\n                \"productId\": \"p2\",\n                \"quantity\": 2,\n                \"unitPrice\": 25,\n                \"totalPrice\": 50\n            }\n        ],\n        \"status\": \"completed\",\n        \"createdAt\": \"2025-09-10T15:00:00Z\",\n        \"subtotal\": 1250,\n        \"discounts\": [\n            {\n                \"code\": \"membership\",\n                \"type\": \"membership\",\n                \"amount\": 187.5\n            },\n            {\n                \"code\": \"volume\",\n                \"type\": \"volume\",\n                \"amount\": 62.5\n            }\n        ],\n        \"taxes\": 262.5,\n        \"metadata\": {\n            \"confirmationCode\": \"CONF-SS6KLN49\"\n        }\n    },\n    \"filterResults\": [\n        {\n            \"filter\": \"CustomerValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"ProductValidationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"DataIntegrityFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PriceCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"MembershipDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"VolumeDiscountFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"TaxCalculationFilter\",\n            \"success\": true\n        },\n        {\n            \"filter\": \"PaymentProcessingFilter\",\n            \"success\": true\n        }\n    ],\n    \"executionTime\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "ConfiguracionDelPipeline",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/pipeline/config"
+					},
+					"response": [
+						{
+							"name": "ConfiguracionDelPipeline",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:3000/api/pipeline/config"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "219"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"db-NvtthEDV6H54blnOEYX0tGopM7g\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:55:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"enabledFilters\": [\n        \"CustomerValidationFilter\",\n        \"ProductValidationFilter\",\n        \"DataIntegrityFilter\",\n        \"PriceCalculationFilter\",\n        \"MembershipDiscountFilter\",\n        \"VolumeDiscountFilter\",\n        \"TaxCalculationFilter\",\n        \"PaymentProcessingFilter\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "ModificacionConfiguracionPipeline",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"enabledFilters\": [\r\n    \"CustomerValidationFilter\",\r\n    \"ProductValidationFilter\",\r\n    \"PriceCalculationFilter\",\r\n    \"PaymentProcessingFilter\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/api/pipeline/config"
+					},
+					"response": [
+						{
+							"name": "ModificacionConfiguracionPipeline",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"enabledFilters\": [\r\n    \"CustomerValidationFilter\",\r\n    \"ProductValidationFilter\",\r\n    \"PriceCalculationFilter\",\r\n    \"PaymentProcessingFilter\"\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:3000/api/pipeline/config"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "124"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7c-T5dUAVntB9t0xr/rxHUckfcwp74\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Sep 2025 17:56:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"enabledFilters\": [\n        \"CustomerValidationFilter\",\n        \"ProductValidationFilter\",\n        \"PriceCalculationFilter\",\n        \"PaymentProcessingFilter\"\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
